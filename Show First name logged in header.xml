@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+  <name><![CDATA[Show First name logged in header]]></name>
+  <code><![CDATA[show-first-name-logged-in-header]]></code>
+	<version><![CDATA[1.0]]></version>
+	<author><![CDATA[REDS PRAI]]></author>
+	<link><![CDATA[https://www.agenciaprai.com/]]></link>
+		
+    <file path="catalog/controller/common/header.php" error="skip">
+			<operation>
+				<search>
+					<![CDATA[$data['text_logged'] = sprintf($this->language->get('text_logged'), $this->url->link('account/account', '', true), $this->customer->getFirstName(), $this->url->link('account/logout', '', true));]]>
+					</search>
+				<add position="replace">
+					<![CDATA[$data['text_logged'] = sprintf($this->language->get('text_logged'), $this->customer->getFirstName());]]>
+					</add>
+			</operation>
+    </file>
+		<file path="catalog/view/thene/*/template/common/header.twig" error="skip">
+			<operation>
+				<search><![CDATA[
+					<span class="hidden-xs hidden-sm hidden-md">{{ text_account }}</span>]]>
+				</search>
+				<add position="replace">
+					<![CDATA[<span class="hidden-xs hidden-sm hidden-md">{% if logged %}{{ text_logged }}{% else %}{{ text_account }}{% endif %}</span>]]>
+				</add>
+			</operation>
+    </file>
+		<file path="catalog/language/pt-br/common/header.php" error="skip">
+			<operation>
+				<search><![CDATA[// Text]]></search>
+				<add position="after">
+				<![CDATA[$_['text_logged']        = '<b>Olá, %s</b>';]]>
+				</add>
+			</operation>
+    </file>
+		<file path="catalog/language/en-gb/common/header.php" error="skip">
+			<operation>
+				<search><![CDATA[// Text]]></search>
+				<add position="after">
+				<![CDATA[$_['text_logged']        = '<b>Hi, %s</b>';]]>
+				</add>
+			</operation>
+    </file>
+</modification>
